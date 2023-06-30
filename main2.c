@@ -1,11 +1,3 @@
-/* Making matrix multiplication 10x faster by making it cache-aware.
-
-$ gcc -O3 main2.c && ./a.out
-
-Slow: 4.142s
-Fast: 0.482s
-*/
-
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>

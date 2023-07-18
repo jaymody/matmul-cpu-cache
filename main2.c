@@ -4,15 +4,13 @@
 #include <time.h>
 
 int main() {
-    /* set random number generator seed */
-    srand(time(NULL));
-
-    /* initialize A and B with random integers between 0 and 9 */
     int M = 1000, N = 2000, O = 3000;
     int *A = malloc(M * N * sizeof(int));
     int *B = malloc(N * O * sizeof(int));
     int *C;
 
+    /* initialize A and B with random integers between 0 and 9 */
+    srand(time(NULL));
     for (int i = 0; i < M; i++)
         for (int j = 0; j < N; j++)
             A[i * M + j] = rand() % 10;
@@ -25,8 +23,8 @@ int main() {
     double elapsed;
 
     /* slow matmul algorithm */
-    C = calloc(M * O, sizeof(int));
     start = clock();
+    C = calloc(M * O, sizeof(int));
     for (int i = 0; i < M; i++)
         for (int j = 0; j < O; j++)
             for (int k = 0; k < N; k++)
@@ -35,8 +33,8 @@ int main() {
     printf("Slow: %.3fs\n", elapsed);
 
     /* fast matmul algorithm */
-    C = calloc(M * O, sizeof(int));
     start = clock();
+    C = calloc(M * O, sizeof(int));
     for (int i = 0; i < M; i++)
         for (int k = 0; k < N; k++)
             for (int j = 0; j < O; j++)

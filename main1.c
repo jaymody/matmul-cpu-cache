@@ -20,8 +20,8 @@ int main() {
             B[i][j] = rand() % 10;
 
     /* slow matmul algorithm */
-    memset(C, 0, M * O);
     clock_t start = clock();
+    memset(C, 0, M * O);
     for (int i = 0; i < M; i++)
         for (int j = 0; j < O; j++)
             for (int k = 0; k < N; k++)
@@ -30,8 +30,8 @@ int main() {
     printf("Slow: %.3fs\n", elapsed);
 
     /* fast matmul algorithm */
-    memset(C, 0, M * O);
     start = clock();
+    memset(C, 0, M * O);
     for (int i = 0; i < M; i++)
         for (int k = 0; k < N; k++)
             for (int j = 0; j < O; j++)

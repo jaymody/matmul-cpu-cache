@@ -5,15 +5,15 @@ Demonstrating how to make matrix multiplication faster by taking advantage of th
 `main2.c` contains an implementation that runs on dynamically allocated arrays.
 
 ```shell
-$ gcc -O3 main1.c && ./a.out
+$ gcc -O2 main1.c && ./a.out
 
-Slow: 3.873s
-Fast: 0.482s
+Slow: 4.034s
+Fast: 0.469s
 ```
 
 ```shell
-$ gcc -O3 main2.c && ./a.out
+$ gcc -O2 main2.c && ./a.out
 
-Slow: 3.520s
-Fast: 0.457s
+Slow: 3.566s
+Fast: 0.445s
 ```

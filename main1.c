@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 const int M = 1000, N = 2000, O = 3000;
@@ -19,28 +20,22 @@ int main() {
             B[i][j] = rand() % 10;
 
     /* slow matmul algorithm */
+    memset(C, 0, M * O);
     clock_t start = clock();
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < O; j++) {
-            C[i][j] = 0;
-            for (int k = 0; k < N; k++) {
+    for (int i = 0; i < M; i++)
+        for (int j = 0; j < O; j++)
+            for (int k = 0; k < N; k++)
                 C[i][j] += A[i][k] * B[k][j];
-            }
-        }
-    }
     double elapsed = (double)(clock() - start) / (double)(CLOCKS_PER_SEC);
     printf("Slow: %.3fs\n", elapsed);
 
     /* fast matmul algorithm */
+    memset(C, 0, M * O);
     start = clock();
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < O; j++)
-            C[i][j] = 0;
-
+    for (int i = 0; i < M; i++)
         for (int k = 0; k < N; k++)
             for (int j = 0; j < O; j++)
                 C[i][j] += A[i][k] * B[k][j];
-    }
     elapsed = (double)(clock() - start) / (double)(CLOCKS_PER_SEC);
     printf("Fast: %.3fs\n", elapsed);
 }

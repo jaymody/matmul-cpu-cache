@@ -7,13 +7,13 @@ Demonstrating how to make matrix multiplication faster by taking advantage of th
 ```shell
 $ gcc -O3 main1.c && ./a.out
 
-Slow: 4.142s
+Slow: 3.873s
 Fast: 0.482s
 ```
 
 ```shell
 $ gcc -O3 main2.c && ./a.out
 
-Slow: 3.623s
-Fast: 0.446s
+Slow: 3.520s
+Fast: 0.457s
 ```

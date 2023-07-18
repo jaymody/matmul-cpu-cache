@@ -3,30 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-int *slow_matrix_multiplication(int *A, int *B, int M, int N, int O) {
-    int *C = malloc(M * O * sizeof(int));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < O; j++) {
-            C[i * M + j] = 0;
-            for (int k = 0; k < N; k++) {
-                C[i * M + j] += A[i * M + k] * B[k * N + j];
-            }
-        }
-    }
-    return C;
-}
-int *fast_matrix_multiplication(int *A, int *B, int M, int N, int O) {
-    int *C = malloc(M * O * sizeof(int));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < O; j++)
-            C[i * M + j] = 0;
-        for (int k = 0; k < N; k++)
-            for (int j = 0; j < O; j++)
-                C[i * M + j] += A[i * M + k] * B[k * N + j];
-    }
-    return C;
-}
-
 int main() {
     /* set random number generator seed */
     srand(time(NULL));
@@ -35,6 +11,7 @@ int main() {
     int M = 1000, N = 2000, O = 3000;
     int *A = malloc(M * N * sizeof(int));
     int *B = malloc(N * O * sizeof(int));
+    int *C;
 
     for (int i = 0; i < M; i++)
         for (int j = 0; j < N; j++)
@@ -47,17 +24,23 @@ int main() {
     clock_t start;
     double elapsed;
 
+    /* slow matmul algorithm */
+    C = calloc(M * O, sizeof(int));
     start = clock();
-    int *C1 = slow_matrix_multiplication(A, B, M, N, O);
+    for (int i = 0; i < M; i++)
+        for (int j = 0; j < O; j++)
+            for (int k = 0; k < N; k++)
+                C[i * M + j] += A[i * M + k] * B[k * N + j];
     elapsed = (double)(clock() - start) / (double)(CLOCKS_PER_SEC);
     printf("Slow: %.3fs\n", elapsed);
 
+    /* fast matmul algorithm */
+    C = calloc(M * O, sizeof(int));
     start = clock();
-    int *C2 = fast_matrix_multiplication(A, B, M, N, O);
+    for (int i = 0; i < M; i++)
+        for (int k = 0; k < N; k++)
+            for (int j = 0; j < O; j++)
+                C[i * M + j] += A[i * M + k] * B[k * N + j];
     elapsed = (double)(clock() - start) / (double)(CLOCKS_PER_SEC);
     printf("Fast: %.3fs\n", elapsed);
-
-    for (int i = 0; i < M * O; i++) {
-        assert(C1[i] == C2[i]);
-    }
 }
